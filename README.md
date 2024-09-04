@@ -1,5 +1,5 @@
 Цель домашнего задания
-Научиться создавать пользователей и добавлять им ограничения
+* Научиться создавать пользователей и добавлять им ограничения
 Описание домашнего задания
 1. Запретить всем пользователям кроме группы admin логин в выходные (суббота и воскресенье), без учета праздников
 
@@ -24,7 +24,7 @@ admin:x:1003:otusadm,root,vagrant
 
 vim /usr/local/bin/login.sh
 
-#!/bin/bash
+  ``` #!/bin/bash
 #Первое условие: если день недели суббота или воскресенье
 if [ $(date +%a) = "Sat" ] || [ $(date +%a) = "Sun" ]; then
  #Второе условие: входит ли пользователь в группу admin
@@ -39,12 +39,13 @@ if [ $(date +%a) = "Sat" ] || [ $(date +%a) = "Sun" ]; then
   else
     exit 0
 fi
+ ```
 9. Добавим права на исполнение файла: chmod +x /usr/local/bin/login.sh
 10. Укажем в файле /etc/pam.d/sshd модуль pam_exec и наш скрипт:
 
 vim /etc/pam.d/sshd 
 
-
+```
 #%PAM-1.0
 auth       substack     password-auth
 auth       include      postlogin
@@ -63,8 +64,8 @@ session    optional     pam_keyinit.so force revoke
 session    optional     pam_motd.so
 session    include      password-auth
 session    include      postlogin
+```
 
-
-Настройка завершена.
+*Настройка завершена.
 
 
